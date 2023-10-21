@@ -61,8 +61,7 @@ def collectionMaker():
     collection_name = db["users"]
     user = {
         "Name": "P1",
-        "ID": "test",
-        "Description": "This is the test user"
+        "Password": "test"
     }
     collection_name.insert_one(user)
     client.close()
