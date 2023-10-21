@@ -1,6 +1,10 @@
 import pygame
+from functions import Login, Home, Passive, Active
+
 
 
 def start_game():
     pygame.init()
-    screen = pygame.display.set_mode((640, 240))
+    clock = pygame.time.Clock()
+    display = pygame.display.set_mode((800, 600))
+    Login.login_screen(display, clock)
