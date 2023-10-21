@@ -41,15 +41,15 @@ def collectionMaker():
     client = MongoClient(
         "mongodb+srv://HackTx:hackywacky@cluster0.s0vmfmm.mongodb.net/?retryWrites=true&w=majority")
     db = client.Projects
-    collection_name = db["Project1"]
+    collection_name = db["Users"]
     user = {
         "Name": "P1",
-        "ID": "as1234",
-        "Description": "This is the first project"
+        "ID": "test",
+        "Description": "This is the test user"
     }
     collection_name.insert_one(user)
     client.close()
 
 if __name__ == '__main__':
-    queryHWSet1Availability()
+    collectionMaker()
     addNewUser("Reese", "1234")
