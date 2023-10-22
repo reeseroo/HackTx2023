@@ -7,13 +7,14 @@ from Users import mongoDB
 from functions import Home, button
 
 
-def login_screen(display, clock, user):
+def login_screen(display, clock, user2):
     def output():
         username = user.getText()
         password2 = password.getText()
         if mongoDB.userFind(username, password2) == 1:
-            user.set_userID(username)
-            Home.home_screen(display, clock, username)
+            print(username)
+            user2.set_userID(username)
+            Home.home_screen(display, clock, user2)
     
     
    # display = pygame.display.set_mode()
@@ -23,9 +24,9 @@ def login_screen(display, clock, user):
     login_button = button.Button(screen_width*0.5, screen_height*0.5, login_img, 0.8)
     register_button = button.Button(screen_width * 0.85, screen_height*.05, register_img, 0.8)
 
-    user = TextBox(display, 100, 100, 800, 80, fontSize=50,
+    user = TextBox(display, 100, 100, 400, 80, fontSize=25,
                       borderColour=(0, 0, 0), textColour=(0, 0, 0),radius=10, borderThickness=5)
-    password = TextBox(display, 100, 300, 800, 80, fontSize=50,
+    password = TextBox(display, 100, 300, 400, 80, fontSize=25,
                    borderColour=(0, 0, 0), textColour=(0, 0, 0), radius=10, borderThickness=5)
 
     
