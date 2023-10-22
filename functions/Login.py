@@ -11,11 +11,15 @@ def login_screen(display, clock, user2):
     def output():
         username = user.getText()
         password2 = password.getText()
-        if mongoDB.userFind(username, password2) == 1:
+        check =mongoDB.userFind(username, password2)
+        if check == 1:
             print(username)
             user2.set_userID(username)
             #Home.home_screen(display, clock, user2)
             return 1
+        elif check == 2:
+            mongoDB.addNewUser(user, password)
+            return 2
         else:
             return 0
     
@@ -32,7 +36,6 @@ def login_screen(display, clock, user2):
     password = TextBox(display, 100, 300, 400, 80, fontSize=25,
                    borderColour=(0, 0, 0), textColour=(0, 0, 0), radius=10, borderThickness=5)
 
-    
 
 
     run = True
@@ -49,12 +52,18 @@ def login_screen(display, clock, user2):
             if event.type == pygame.QUIT: 
                 pygame.quit()
             elif event.type == pygame.KEYDOWN:
-                pygame.quit()
-                sys.exit()
-                                   
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                    pygame.quit()
+                    sys.exit()
+
+
         register_button.draw(display)
         if login_button.draw(display):
             if output()==1:
+                Home.home_screen(display, clock, user2)
+        if register_button.draw(display):
+            if output()==2:
                 Home.home_screen(display, clock, user2)
         pygame_widgets.update(events)
         pygame.display.update()

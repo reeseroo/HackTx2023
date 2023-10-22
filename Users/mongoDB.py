@@ -11,7 +11,7 @@ def userFind(userid, password):
          if check == user.get("password"):
            return 1
          else:
-            return 0
+            return 2
 
     client.close()
 
@@ -75,7 +75,7 @@ def characterFind(userid):
     if user:
         characters = user.get("characters", [])
         char_names = [character["character"] for character in characters]
-        return char_names
+        return char_names[0]
 
     client.close()
 
@@ -156,5 +156,6 @@ def getCharacterHealth(userid, char_name):
 
 
 if __name__ == '__main__':
+    print(userFind("Jenna", "123"))
     print(characterFind("Jenna"))
-    print(getCharacterHealth("Jenna", "Subuwu"))
+    print(getCharacterWealth("Jenna", "Subuwu"))
