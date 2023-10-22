@@ -24,7 +24,7 @@ def home_screen(display, clock, user):
         hoverColour=(236, 197, 163),
         pressedColour=(233, 137, 53),
         radius=20,
-        onClick=lambda: Passive.passive_screen(display, clock)
+        onClick=lambda: Active.active_screen(display, clock)
     )
 
     passiveButton = Button(
@@ -34,7 +34,7 @@ def home_screen(display, clock, user):
         300,
         100,
 
-        text  = "Active",
+        text  = "Passive",
         fontSize=50,
         margin=20,
         inactiveColour=(191, 143, 101),
@@ -61,6 +61,8 @@ def home_screen(display, clock, user):
         pygame_widgets.update(events)  # Call once every loop to allow widgets to render and listen
         pygame.display.update()
     #Display Character
-    #Display Passive Button
-    #Display Active Button
+    avatar = mongoDB.characterFind(user)
+    #health = mongoDB.healthFind(user) #getting the health of the character for future displaying
+    #wealth = mongoDB.wealthFind(user) #for getting the wealth of the character for future displaying
+    
     #Display LeaderBoard
