@@ -1,6 +1,6 @@
 # import the pygame module 
 import pygame, sys
-from functions import button, Home
+from functions import button, Home, Active
 
 def passive_screen(display, clock, user):
 
@@ -26,7 +26,7 @@ def passive_screen(display, clock, user):
 		if home_button.draw(display): #if the button is clicked
 			Home.home_screen(display, clock, user)
 		if active_button.draw(display):
-			print('EXIT')
+			Active.ActiveScreen(display)
 	
 	# for loop through the event queue 
 		for event in pygame.event.get(): 
