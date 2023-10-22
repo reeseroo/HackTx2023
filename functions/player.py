@@ -26,14 +26,14 @@ class player:
     def set_char(self, char):
         self.__char = char
 
-    def get_userID(self, userID):
-        self.__userID = userID
+    def get_userID(self):
+        return self.__userID
 
-    def get_health(self, health):
-        self.__health = health
+    def get_health(self):
+         return self.__health
 
-    def get_wealth(self, wealth):
-        self.__wealth = wealth
+    def get_wealth(self):
+        return self.__wealth
 
-    def get_char(self, char):
-        self.__char = char
+    def get_char(self):
+        return self.__char

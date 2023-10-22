@@ -2,7 +2,7 @@
 import pygame, sys
 from functions import button, Home
 
-def passive_screen(display, clock):
+def passive_screen(display, clock, user):
 
 	start_img = pygame.image.load('sprites/start_btn.png')
 	exit_img = pygame.image.load('sprites/exit_btn.png')

@@ -7,9 +7,10 @@ from pygame_widgets.button import Button
 
 
 def home_screen(display, clock, user):
-    #to-do
-    mongoDB.characterFind(user)
-    print("todo")
+    user.set_char(mongoDB.characterFind(user.get_userID()))
+    user.set_health(mongoDB.getCharacterHealth(user.get_userID(), user.get_char()))
+    user.set_wealth(mongoDB.getCharacterWealth(user.get_userID(), user.get_char()))
+
     activeButton = Button(
         display,
         40,
