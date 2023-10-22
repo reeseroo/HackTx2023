@@ -1,36 +1,34 @@
 # import the pygame module 
 import pygame, sys
-from functions import button, Home
+from functions import button, Home, Active
 
 def passive_screen(display, clock, user):
 
 	width, height = display.get_size()
 
-	start_img = pygame.image.load('sprites/start_btn.png')
-	exit_img = pygame.image.load('sprites/exit_btn.png')
-	start_button = button.Button(width*0.03, height*0.05, start_img, 0.8)
-	exit_button = button.Button(width*0.85, height*0.05, exit_img, 0.8)
 
-	width, height = display.get_size()
+	screen_width, screen_height = display.get_size() 
+
+	home_img = pygame.image.load('sprites/home_button.jpg')
+	active_img = pygame.image.load('sprites/active_button.jpg')
+	home_button = button.Button(screen_width*0.03, screen_height*0.05, home_img, 0.8)
+	active_button = button.Button(screen_width * 0.7, screen_height*.05, active_img, 0.8)
 
 	# Define the background colour 
 	# using RGB color coding. 
 	background_colour = (234, 212, 252) 
 	display.fill(background_colour)
 	pygame.display.flip()
-	x = 100
-	y = 100
-
 	
 	# Variable to keep our game loop running 
 	running = True
 	# game loop 
 	while running: 
 
-		if start_button.draw(display): #if the button is clicked
-			Home.home_screen(display, clock)
-		if exit_button.draw(display):
-			print('EXIT')
+		if home_button.draw(display): #if the button is clicked
+			Home.home_screen(display, clock, user)
+		if active_button.draw(display):
+			Active.ActiveScreen(display)
 	
 	# for loop through the event queue 
 		for event in pygame.event.get(): 
@@ -43,7 +41,7 @@ def passive_screen(display, clock, user):
 					running = False
 					pygame.quit()
 					sys.exit()
-	
-
+			
         #refresh
-		pygame.display.flip()
+		pygame.display.update()
+

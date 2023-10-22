@@ -4,42 +4,43 @@ from pygame_widgets.textbox import TextBox
 from pygame_widgets.button import Button
 import sys
 from Users import mongoDB
-from functions import Home
+from functions import Home, button
 
 
-def login_screen(display, clock):
+def login_screen(display, clock, user2):
     def output():
         username = user.getText()
         password2 = password.getText()
-        if mongoDB.userFind(username, password2) == 1:
-            Home.home_screen(display, clock, username)
+        check =mongoDB.userFind(username, password2)
+        if check == 1:
+            print(username)
+            user2.set_userID(username)
+            #Home.home_screen(display, clock, user2)
+            return 1
+        elif check == 2:
+            mongoDB.addNewUser(user, password)
+            return 2
+        else:
+            return 0
+    
+    
+   # display = pygame.display.set_mode()
+    screen_width, screen_height = display.get_size() 
+    login_img = pygame.image.load('sprites/login_button.jpg')
+    register_img = pygame.image.load('sprites/register_button.jpg')
+    login_button = button.Button(screen_width*0.5, screen_height*0.5, login_img, 0.8)
+    register_button = button.Button(screen_width*0.2, screen_height*0.5, register_img, 0.8)
 
-
-    display = pygame.display.set_mode((1000, 600))
-
-    user = TextBox(display, 100, 100, 800, 80, fontSize=50,
+    user = TextBox(display, 100, 100, 400, 80, fontSize=25,
                       borderColour=(0, 0, 0), textColour=(0, 0, 0),radius=10, borderThickness=5)
-    password = TextBox(display, 100, 300, 800, 80, fontSize=50,
+    password = TextBox(display, 100, 300, 400, 80, fontSize=25,
                    borderColour=(0, 0, 0), textColour=(0, 0, 0), radius=10, borderThickness=5)
-    button = Button(
-        # Mandatory Parameters
-        display,  # Surface to place button on
-        300,  # X-coordinate of top left corner
-        450,  # Y-coordinate of top left corner
-        300,  # Width
-        150,  # Height
 
-        # Optional Parameters
-        text='Login',  # Text to display
-        fontSize=50,  # Size of font
-        margin=20,  # Minimum distance between text/image and edge of button
-        inactiveColour=(200, 50, 0),  # Colour of button when not being interacted with
-        hoverColour=(150, 0, 0),  # Colour of button when being hovered over
-        pressedColour=(0, 200, 20),  # Colour of button when being clicked
-        radius=20,  # Radius of border corners (leave empty for not curved)
-        onClick=output  # Function to call when clicked on
-    )
+
+
     run = True
+    
+    display.fill((234, 212, 252))
     while run:
         events = pygame.event.get()
         for event in events:
@@ -47,11 +48,27 @@ def login_screen(display, clock):
                 pygame.quit()
                 run = False
                 quit()
+            # Check for QUIT event	 
+            if event.type == pygame.QUIT: 
+                pygame.quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                    pygame.quit()
+                    sys.exit()
 
-        display.fill((255, 255, 255))
 
+        register_button.draw(display)
+        if login_button.draw(display):
+            if output()==1:
+                Home.home_screen(display, clock, user2)
+        if register_button.draw(display):
+            if output()==2:
+                Home.home_screen(display, clock, user2)
         pygame_widgets.update(events)
         pygame.display.update()
+
+            
 
     '''
    if mongoDB.userFind("Jenna", "2345") == 1:
