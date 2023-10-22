@@ -7,4 +7,4 @@ def start_game():
     pygame.init()
     clock = pygame.time.Clock()
     display = pygame.display.set_mode((800, 600))
-    Login.login_screen(display, clock)
+    Home.home_screen(display, clock, 'Jenna')
