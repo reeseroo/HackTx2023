@@ -1,14 +1,12 @@
 # import the pygame module 
 import pygame, sys
-from functions import button
-
-
+from functions import button, Home
 
 def passive_screen(display, clock):
 
 	start_img = pygame.image.load('sprites/start_btn.png')
 	exit_img = pygame.image.load('sprites/exit_btn.png')
-	start_button = button.Button(100, 200, start_img, 0.8)
+	start_button = button.Button(50, 50, start_img, 0.8)
 	exit_button = button.Button(450, 200, exit_img, 0.8)
 
 	width, height = display.get_size()
@@ -27,8 +25,8 @@ def passive_screen(display, clock):
 	# game loop 
 	while running: 
 
-		if start_button.draw(display):
-			print('START')
+		if start_button.draw(display): #if the button is clicked
+			Home.home_screen(display, clock)
 		if exit_button.draw(display):
 			print('EXIT')
 	
