@@ -42,7 +42,7 @@ def home_screen(display, clock, user):
         hoverColour=(236, 197, 163),
         pressedColour=(233, 137, 53),
         radius=20,
-        onClick=lambda: Passive.passive_screen(display, clock)
+        onClick=lambda: Passive.passive_screen(display, clock, user)
     )
     dis = (218, 108, 177)
     bN = (191, 143, 101)

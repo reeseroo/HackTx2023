@@ -4,41 +4,33 @@ from pygame_widgets.textbox import TextBox
 from pygame_widgets.button import Button
 import sys
 from Users import mongoDB
-from functions import Home
+from functions import Home, button
 
 
-def login_screen(display, clock):
+def login_screen(display, clock, user):
     def output():
         username = user.getText()
         password2 = password.getText()
         if mongoDB.userFind(username, password2) == 1:
+            user.set_userID(username)
             Home.home_screen(display, clock, username)
-
-
-    display = pygame.display.set_mode((1000, 600))
+    
+    
+   # display = pygame.display.set_mode()
+    screen_width, screen_height = display.get_size() 
+    login_img = pygame.image.load('sprites/login_button.jpg')
+    register_img = pygame.image.load('sprites/register_button.jpg')
+    login_button = button.Button(screen_width*0.5, screen_height*0.5, login_img, 0.8)
+    register_button = button.Button(screen_width * 0.85, screen_height*.05, register_img, 0.8)
 
     user = TextBox(display, 100, 100, 800, 80, fontSize=50,
                       borderColour=(0, 0, 0), textColour=(0, 0, 0),radius=10, borderThickness=5)
     password = TextBox(display, 100, 300, 800, 80, fontSize=50,
                    borderColour=(0, 0, 0), textColour=(0, 0, 0), radius=10, borderThickness=5)
-    button = Button(
-        # Mandatory Parameters
-        display,  # Surface to place button on
-        300,  # X-coordinate of top left corner
-        450,  # Y-coordinate of top left corner
-        300,  # Width
-        150,  # Height
 
-        # Optional Parameters
-        text='Login',  # Text to display
-        fontSize=50,  # Size of font
-        margin=20,  # Minimum distance between text/image and edge of button
-        inactiveColour=(200, 50, 0),  # Colour of button when not being interacted with
-        hoverColour=(150, 0, 0),  # Colour of button when being hovered over
-        pressedColour=(0, 200, 20),  # Colour of button when being clicked
-        radius=20,  # Radius of border corners (leave empty for not curved)
-        onClick=output  # Function to call when clicked on
-    )
+    
+
+
     run = True
     while run:
         events = pygame.event.get()
@@ -48,8 +40,11 @@ def login_screen(display, clock):
                 run = False
                 quit()
 
-        display.fill((255, 255, 255))
+       #@ display.fill((255, 255, 255))
 
+        if login_button.draw(display):
+            if output():
+                Home.home_screen(display, clock, user)
         pygame_widgets.update(events)
         pygame.display.update()
 

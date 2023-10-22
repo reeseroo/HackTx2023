@@ -1,7 +1,7 @@
-from enum import enum
+#from enum import enum
 
 #easy bookkeeping of avatars
-class character(enum):
+class character():
     subuwu = 1
     kaeya = 2
     loser = 3
