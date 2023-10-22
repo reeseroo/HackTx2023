@@ -1,35 +1,49 @@
 # import the pygame module 
-import pygame 
+import pygame, sys
+from functions import button
 
-# Define the background colour 
-# using RGB color coding. 
-background_colour = (234, 212, 252) 
 
-# Define the dimensions of 
-# screen object(width,height) 
-screen = pygame.display.set_mode() 
 
-# Set the caption of the screen 
-pygame.display.set_caption('Passive Mode') 
+def passive_screen(display, clock):
 
-# Fill the background colour to the screen 
-screen.fill(background_colour) 
+	start_img = pygame.image.load('sprites/start_btn.png')
+	exit_img = pygame.image.load('sprites/exit_btn.png')
+	start_button = button.Button(100, 200, start_img, 0.8)
+	exit_button = button.Button(450, 200, exit_img, 0.8)
 
-# Update the display using flip 
-pygame.display.flip() 
+	width, height = display.get_size()
 
-# Variable to keep our game loop running 
-running = True
+	# Define the background colour 
+	# using RGB color coding. 
+	background_colour = (234, 212, 252) 
+	display.fill(background_colour)
+	pygame.display.flip()
+	x = 100
+	y = 100
 
-# game loop 
-while running: 
 	
-# for loop through the event queue 
-	for event in pygame.event.get(): 
+	# Variable to keep our game loop running 
+	running = True
+	# game loop 
+	while running: 
+
+		if start_button.draw(display):
+			print('START')
+		if exit_button.draw(display):
+			print('EXIT')
 	
-		# Check for QUIT event	 
-		if event.type == pygame.QUIT: 
-			running = False
-		elif event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_ESCAPE:
+	# for loop through the event queue 
+		for event in pygame.event.get(): 
+	
+			# Check for QUIT event	 
+			if event.type == pygame.QUIT: 
 				running = False
+			elif event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_ESCAPE:
+					running = False
+					pygame.quit()
+					sys.exit()
+	
+
+        #refresh
+		pygame.display.flip()
