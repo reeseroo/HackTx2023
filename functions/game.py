@@ -7,4 +7,4 @@ def start_game():
     pygame.init()
     clock = pygame.time.Clock()
     display = pygame.display.set_mode()
-    Passive.passive_screen(display, clock)
+    Login.Login_screen(display, clock)
