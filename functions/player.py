@@ -1,17 +1,39 @@
 from enum import enum
 
 #easy bookkeeping of avatars
-class playerType(enum):
+class character(enum):
     subuwu = 1
     kaeya = 2
     loser = 3
- 
- 
- #keeping track of player info(current health, amount of money, what kind of avatar they have) across users hopefully
-class player:
-    def __init__(h, c, type):
-        health = h
-        currency = c
-        pType = type
-    
 
+
+class player:
+    def __init__(self):
+        self.__userID = ""
+        self.__health = 0
+        self.__wealth = 0
+        self.__char = ""
+
+    def set_userID(self, userID):
+        self.__userID = userID
+
+    def set_health(self, health):
+        self.__health = health
+
+    def set_wealth(self, wealth):
+        self.__wealth = wealth
+
+    def set_char(self, char):
+        self.__char = char
+
+    def get_userID(self, userID):
+        self.__userID = userID
+
+    def get_health(self, health):
+        self.__health = health
+
+    def get_wealth(self, wealth):
+        self.__wealth = wealth
+
+    def get_char(self, char):
+        self.__char = char
