@@ -1,7 +1,7 @@
 def active_screen(display, clock):
     #to-do
     print("todo")
-
+    
     # import flashcard module 
 
 from kivy.app import App
@@ -111,4 +111,3 @@ if __name__ == '__main__':
 
 
 # if computer can understand what they mean by the response -- technical --
-
