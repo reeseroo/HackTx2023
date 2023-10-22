@@ -67,13 +67,16 @@ def collectionMaker():
     client.close()
 
 def characterFind(userid):
-    client = MongoClient(
-        "mongodb+srv://HackTx:hackywacky@cluster0.s0vmfmm.mongodb.net/?retryWrites=true&w=majority")
+    client = MongoClient("mongodb+srv://HackTx:hackywacky@cluster0.s0vmfmm.mongodb.net/?retryWrites=true&w=majority")
     db = client.Users
-    collection_name =  db.users
+    collection_name = db.users
     user = collection_name.find_one({"userid": userid})
+
     if user:
-         print(user.get("character"))
+        characters = user.get("characters", [])
+        char_names = [character["character"] for character in characters]
+        return char_names
+
     client.close()
 
 def characterAdd(userid, char):
@@ -83,5 +86,75 @@ def characterAdd(userid, char):
     collection_name =  db.users
     user = collection_name.find_one({"userid": userid})
     if user:
-        collection_name.update_one({"userid": userid}, {"$push":{"character": char}})
+        new_character = {
+            "character": char,
+            "Health": 200,
+            "Wealth": 500
+        }
+        collection_name.update_one({"userid": userid}, {"$push": {"characters": new_character}})
     client.close()
+
+def updateCharacter(userid, char_name, new_health, new_wealth):
+    client = MongoClient("mongodb+srv://HackTx:hackywacky@cluster0.s0vmfmm.mongodb.net/?retryWrites=true&w=majority")
+    db = client.Users
+    collection_name = db.users
+    user = collection_name.find_one({"userid": userid})
+
+    if user:
+        existing_characters = user.get("characters", [])
+        updated_character = None
+
+        # Find the character with the specified name and update its fields
+        for character in existing_characters:
+            if character.get("character") == char_name:
+                character["Health"] = new_health
+                character["Wealth"] = new_wealth
+                updated_character = character
+                break
+
+        # If the character was not found, create a new character object
+        if updated_character is None:
+            updated_character = {
+                "character": char_name,
+                "Health": new_health,
+                "Wealth": new_wealth
+            }
+
+        # Update the characters array
+        collection_name.update_one({"userid": userid}, {"$set": {"characters": existing_characters}})
+
+    client.close()
+
+def getCharacterWealth(userid, char_name):
+    client = MongoClient("mongodb+srv://HackTx:hackywacky@cluster0.s0vmfmm.mongodb.net/?retryWrites=true&w=majority")
+    db = client.Users
+    collection_name = db.users
+    user = collection_name.find_one({"userid": userid})
+
+    if user:
+        characters = user.get("characters", [])
+        for character in characters:
+            if character["character"] == char_name:
+                return character["Wealth"]
+
+    client.close()
+
+def getCharacterHealth(userid, char_name):
+    client = MongoClient("mongodb+srv://HackTx:hackywacky@cluster0.s0vmfmm.mongodb.net/?retryWrites=true&w=majority")
+    db = client.Users
+    collection_name = db.users
+    user = collection_name.find_one({"userid": userid})
+
+    if user:
+        characters = user.get("characters", [])
+        for character in characters:
+            if character["character"] == char_name:
+                return character["Health"]
+
+    client.close()
+
+
+
+if __name__ == '__main__':
+    print(characterFind("Jenna"))
+    print(getCharacterHealth("Jenna", "Subuwu"))
