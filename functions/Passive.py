@@ -4,10 +4,12 @@ from functions import button, Home
 
 def passive_screen(display, clock):
 
+	width, height = display.get_size()
+
 	start_img = pygame.image.load('sprites/start_btn.png')
 	exit_img = pygame.image.load('sprites/exit_btn.png')
-	start_button = button.Button(50, 50, start_img, 0.8)
-	exit_button = button.Button(450, 200, exit_img, 0.8)
+	start_button = button.Button(width*0.03, height*0.05, start_img, 0.8)
+	exit_button = button.Button(width*0.85, height*0.05, exit_img, 0.8)
 
 	width, height = display.get_size()
 
